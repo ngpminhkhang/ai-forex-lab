@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+MetaTrader5
+pandas
+textblob
