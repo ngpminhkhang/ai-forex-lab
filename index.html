@@ -59,15 +59,18 @@
             color: var(--text-color);
             line-height: 1.5;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
             max-width: 1440px;
             margin: 0 auto;
             padding: 16px;
+            flex: 1;
         }
 
-        /* Header - Reduced padding */
+        /* Header */
         .header {
             background: var(--card-bg);
             border-bottom: 1px solid var(--border-light);
@@ -145,7 +148,7 @@
             border-color: var(--primary);
         }
 
-        /* Main Grid - Reduced gaps */
+        /* Main Grid */
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 300px;
@@ -158,7 +161,7 @@
             align-self: start;
         }
 
-        /* Cards - Reduced padding */
+        /* Cards */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-light);
@@ -190,7 +193,7 @@
             gap: 6px;
         }
 
-        /* Models Grid - Tighter spacing */
+        /* Models Grid */
         .models-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -247,7 +250,7 @@
             gap: 4px;
         }
 
-        /* Chart - More compact */
+        /* Chart */
         .chart-container {
             height: 350px;
             background: var(--card-bg);
@@ -256,7 +259,7 @@
             border: 1px solid var(--border-light);
         }
 
-        /* Controls - Tighter grid */
+        /* Controls */
         .controls-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -330,7 +333,7 @@
             transform: translateY(0);
         }
 
-        /* Metrics - More compact */
+        /* Metrics */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -364,7 +367,7 @@
             letter-spacing: 0.3px;
         }
 
-        /* Community - Tighter */
+        /* Community */
         .community-stats {
             display: flex;
             gap: 12px;
@@ -379,7 +382,7 @@
             border-radius: 8px;
         }
 
-        /* Voting - More compact */
+        /* Voting */
         .voting-section {
             padding: 16px;
             border-radius: 8px;
@@ -416,7 +419,7 @@
             color: white;
         }
 
-        /* AI Insights - Compact */
+        /* AI Insights */
         .ai-insights {
             margin-top: 16px;
             padding: 12px;
@@ -455,6 +458,32 @@
             transition: width 0.3s ease;
         }
 
+        /* Footer */
+        .footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-light);
+            padding: 20px 0;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .footer-text i {
+            color: var(--primary);
+            margin: 0 4px;
+        }
+
         /* Responsive */
         @media (max-width: 1200px) {
             .main-grid {
@@ -491,6 +520,14 @@
             .controls-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .footer {
+                padding: 16px 0;
+            }
+            
+            .footer-text {
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -510,7 +547,7 @@
                     <a href="#"><i class="fas fa-users"></i> Community</a>
                     <a href="#"><i class="fas fa-book"></i> Academic</a>
                     <button class="theme-toggle" onclick="toggleDarkMode()">
-                        <i class="fas fa-moon"></i> Dark Mode
+                        <i class="fas fa-moon"></i> <span class="theme-text">Dark Mode</span>
                     </button>
                 </div>
             </nav>
@@ -717,6 +754,15 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <i class="fas fa-heart"></i> Minh Khang © 2025 AI Forex Lab - Advanced Portfolio Research Platform
+            </div>
+        </div>
+    </footer>
+
     <script>
         // Initialize Performance Chart
         function initChart() {
@@ -865,14 +911,14 @@
             }, 1500);
         }
 
-        // Dark Mode Toggle
+        // Dark Mode Toggle - FIXED
         function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const button = document.querySelector('.theme-toggle');
-            const icon = button.querySelector('i');
-            const text = button.querySelector('span') || document.createElement('span');
+            const isDarkMode = document.body.classList.toggle('dark-mode');
+            const themeToggle = document.querySelector('.theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            const text = themeToggle.querySelector('.theme-text');
             
-            if (document.body.classList.contains('dark-mode')) {
+            if (isDarkMode) {
                 icon.className = 'fas fa-sun';
                 text.textContent = 'Light Mode';
             } else {
@@ -880,10 +926,7 @@
                 text.textContent = 'Dark Mode';
             }
             
-            if (!button.contains(text)) {
-                button.appendChild(text);
-            }
-            
+            // Refresh chart with new theme
             setTimeout(initChart, 100);
         }
 
